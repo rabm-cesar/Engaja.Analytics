@@ -12,27 +12,30 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #edf6ff;
+            background-color: #f0f4f8; /* Light background to make the dashboard pop */
         }
         .bg-custom-dark {
-            background-color: #12161a;
+            background-color: #283546; /* Dark slate blue from reference */
         }
-        .text-azul-claro { color: #79a6f6; }
-        .text-ciano { color: #3aced8; }
-        .text-rosa { color: #f97bb2; }
-        .bg-azul-intenso { background-color: #0042cd; }
-        .bg-azul-marinho { background-color: #072f94; }
-        .ring-azul-vibrante { ring-color: #146df9; }
+        
+        /* Color Scheme */
+        .text-verde-engaja { color: #a8e063; } /* Green for branding */
+        .text-azul-discreto { color: #60a5fa; } /* Blue for UI highlights */
+        .bg-azul-discreto { background-color: #60a5fa; }
+        .ring-azul-discreto { ring-color: #60a5fa; }
+
+        .bg-accent-action-hover:hover { background-color: #3b82f6; }
+        
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #12161a;
+            background: #283546;
         }
         ::-webkit-scrollbar-thumb {
-            background-color: #072f94;
+            background-color: #60a5fa;
             border-radius: 10px;
-            border: 2px solid #12161a;
+            border: 2px solid #283546;
         }
         .modal {
             display: none;
@@ -42,15 +45,16 @@
             display: flex;
         }
         .spinner {
-            border-top-color: #3aced8;
+            border-top-color: #60a5fa;
             animation: spin 1s linear infinite;
         }
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
         .tab-btn.active {
-            background-color: #072f94;
-            color: #edf6ff;
+            background-color: #60a5fa;
+            color: #ffffff;
+            font-weight: 600;
         }
         .tab-content {
             display: none;
@@ -63,14 +67,13 @@
             border: 1px solid #4b5563;
             color: #d1d5db;
         }
-        /* Estilo para botões de tipo de gráfico */
         .chart-type-btn {
             background-color: #374151; /* gray-700 */
             color: #d1d5db; /* gray-300 */
         }
         .chart-type-btn.active {
-            background-color: #0042cd; /* bg-azul-intenso */
-            color: white;
+            background-color: #60a5fa; /* bg-azul-discreto */
+            color: #ffffff;
             font-weight: 600;
         }
     </style>
@@ -81,10 +84,24 @@
         <header class="flex flex-col sm:flex-row items-center justify-between mb-4 pb-4 border-b border-gray-700">
             <div class="flex items-center">
                 <div class="w-16 h-auto">
-                    <svg viewBox="0 0 120 85" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="gaugeGradientFinal" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#f97bb2;" /><stop offset="50%" style="stop-color:#3aced8;" /><stop offset="100%" style="stop-color:#79a6f6;" /></linearGradient></defs><path d="M 10 70 A 50 50, 0, 0, 1, 110 70" fill="none" stroke="url(#gaugeGradientFinal)" stroke-width="14" stroke-linecap="round"/><g fill="#edf6ff"><circle cx="60" cy="45" r="7"></circle><path d="M 60 54 L 52 70 L 68 70 Z"></path></g><g transform="rotate(45 60 70)"><path d="M 60 70 L 60 25" stroke="#edf6ff" stroke-width="4" stroke-linecap="round"></path><circle cx="60" cy="70" r="6" fill="#edf6ff"></circle></g></svg>
+                    <!-- SVG Logo with original green gradient -->
+                    <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#76d2c4;" />
+                                <stop offset="100%" style="stop-color:#a8e063;" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M 10 50 A 40 40, 0, 0, 1, 90 50" fill="none" stroke="url(#gaugeGradient)" stroke-width="12" stroke-linecap="round"/>
+                        <g transform="translate(50, 50) rotate(30)">
+                            <path d="M 0 0 L 0 -35" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+                        </g>
+                        <circle cx="50" cy="50" r="8" fill="#ffffff"/>
+                        <path d="M 46 46 L 50 35 L 54 46 Z" fill="#283546"/>
+                    </svg>
                 </div>
                 <div class="text-left ml-4">
-                    <h1 class="text-2xl md:text-3xl"><span class="font-bold text-azul-claro">Engaja</span><span class="font-light text-white">Analytics</span></h1>
+                    <h1 class="text-2xl md:text-3xl"><span class="font-bold text-verde-engaja">Engaja</span><span class="font-light text-white">Analytics</span></h1>
                     <p class="text-gray-400 text-xs md:text-sm">Monitorando o engajamento, impulsionando o futuro.</p>
                 </div>
             </div>
@@ -116,7 +133,7 @@
                 <div class="bg-gray-900/50 p-4 rounded-lg">
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm text-left text-gray-300">
-                            <thead class="text-xs text-azul-claro uppercase bg-gray-800">
+                            <thead class="text-xs text-azul-discreto uppercase bg-gray-800">
                                 <tr>
                                     <th scope="col" class="px-6 py-3">Colaborador</th>
                                     <th scope="col" class="px-6 py-3">Departamento</th>
@@ -132,7 +149,7 @@
             <div id="content-dashboard" class="tab-content">
                  <div class="bg-gray-900/50 p-4 rounded-lg h-full flex flex-col">
                     <div class="flex justify-between items-center mb-4">
-                         <h3 id="chart-title" class="text-lg font-semibold text-azul-claro">Distribuição de Risco por Departamento</h3>
+                         <h3 id="chart-title" class="text-lg font-semibold text-azul-discreto">Distribuição de Risco por Departamento</h3>
                          <div class="flex space-x-1 bg-gray-800 p-1 rounded-md">
                             <button id="chart-type-bar" class="chart-type-btn text-xs px-3 py-1 rounded-md transition-colors active">Por Departamento</button>
                             <button id="chart-type-pie" class="chart-type-btn text-xs px-3 py-1 rounded-md transition-colors">Visão Geral</button>
@@ -148,20 +165,20 @@
 
     <!-- Modal para Detalhes e Ações de IA -->
     <div id="employee-modal" class="modal fixed inset-0 bg-black bg-opacity-75 items-center justify-center p-4">
-        <div class="bg-custom-dark rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] flex flex-col ring-2 ring-azul-vibrante">
+        <div class="bg-custom-dark rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] flex flex-col ring-2 ring-azul-discreto">
             <div class="p-6 border-b border-gray-700 flex justify-between items-center">
                 <h3 class="text-xl font-bold text-white" id="modal-employee-name"></h3>
-                <button id="close-modal-btn" class="text-gray-400 hover:text-white" aria-label="Fechar modal">&times;</button>
+                <button id="close-modal-btn" class="text-gray-400 hover:text-white text-2xl leading-none" aria-label="Fechar modal">&times;</button>
             </div>
             <div class="p-6 flex-grow overflow-y-auto">
                 <div id="employee-details" class="text-gray-300 mb-4"></div>
-                <button id="generate-plan-btn" class="w-full bg-azul-intenso hover:bg-azul-marinho text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center transition-colors">
+                <button id="generate-plan-btn" class="w-full bg-azul-discreto bg-accent-action-hover text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center transition-colors">
                     <span class="mr-2">✨</span> Gerar Plano de Ação com IA
                 </button>
                 <div id="ai-plan-container" class="mt-4 text-left hidden">
                     <div class="flex justify-between items-center">
-                        <h4 class="text-lg font-semibold text-azul-claro mb-2">Plano de Ação Sugerido</h4>
-                        <button id="play-audio-btn" aria-label="Ouvir plano de ação" class="bg-ciano/20 text-ciano p-2 rounded-full hover:bg-ciano/40 disabled:opacity-50 disabled:cursor-not-allowed">
+                        <h4 class="text-lg font-semibold text-azul-discreto mb-2">Plano de Ação Sugerido</h4>
+                        <button id="play-audio-btn" aria-label="Ouvir plano de ação" class="bg-azul-discreto/20 text-azul-discreto p-2 rounded-full hover:bg-azul-discreto/40 disabled:opacity-50 disabled:cursor-not-allowed">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" /></svg>
                         </button>
                     </div>
@@ -169,17 +186,19 @@
                 </div>
                  <div id="loading-spinner" class="mt-4 hidden text-center">
                     <div class="spinner h-8 w-8 border-4 border-gray-700 rounded-full mx-auto"></div>
-                    <p class="text-ciano mt-2">A IA está a gerar um plano personalizado...</p>
+                    <p class="text-azul-discreto mt-2">A IA está a gerar um plano personalizado...</p>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        // --- DATA ---
         const employees = [
             { id: 1, name: 'Ana Silva', department: 'Vendas', satisfaction: 0.38, evaluation: 0.53, projects: 2, hours: 157, tenure: 3, promotion: 0, risk: 'Alto' },{ id: 2, name: 'Bruno Costa', department: 'Técnico', satisfaction: 0.80, evaluation: 0.86, projects: 5, hours: 262, tenure: 6, promotion: 0, risk: 'Baixo' },{ id: 3, name: 'Carla Dias', department: 'Vendas', satisfaction: 0.11, evaluation: 0.88, projects: 7, hours: 272, tenure: 4, promotion: 0, risk: 'Alto' },{ id: 4, name: 'Diogo Martins', department: 'Suporte', satisfaction: 0.72, evaluation: 0.87, projects: 5, hours: 223, tenure: 5, promotion: 0, risk: 'Médio' },{ id: 5, name: 'Eva Rocha', department: 'RH', satisfaction: 0.59, evaluation: 0.92, projects: 3, hours: 142, tenure: 3, promotion: 1, risk: 'Baixo' },{ id: 6, name: 'Fábio Neves', department: 'Marketing', satisfaction: 0.41, evaluation: 0.50, projects: 2, hours: 153, tenure: 3, promotion: 0, risk: 'Alto' },{ id: 7, name: 'Sofia Pereira', department: 'Técnico', satisfaction: 0.10, evaluation: 0.77, projects: 6, hours: 247, tenure: 4, promotion: 0, risk: 'Alto' },{ id: 8, name: 'Hugo Almeida', department: 'Desenvolvimento', satisfaction: 0.92, evaluation: 0.85, projects: 5, hours: 259, tenure: 5, promotion: 0, risk: 'Baixo' },{ id: 9, name: 'Inês Gomes', department: 'Contabilidade', satisfaction: 0.42, evaluation: 0.53, projects: 2, hours: 142, tenure: 3, promotion: 0, risk: 'Médio' },{ id: 10, name: 'João Ribeiro', department: 'Vendas', satisfaction: 0.78, evaluation: 0.99, projects: 4, hours: 255, tenure: 6, promotion: 0, risk: 'Médio' },{ id: 11, name: 'Laura Mendes', department: 'Design', satisfaction: 0.85, evaluation: 0.95, projects: 4, hours: 180, tenure: 2, promotion: 1, risk: 'Baixo' },{ id: 12, name: 'Miguel Santos', department: 'Operações', satisfaction: 0.55, evaluation: 0.70, projects: 3, hours: 200, tenure: 8, promotion: 0, risk: 'Médio' },{ id: 13, name: 'Nuno Ferreira', department: 'Desenvolvimento', satisfaction: 0.35, evaluation: 0.45, projects: 2, hours: 135, tenure: 3, promotion: 0, risk: 'Alto' },{ id: 14, name: 'Olivia Castro', department: 'Marketing', satisfaction: 0.90, evaluation: 0.88, projects: 6, hours: 240, tenure: 4, promotion: 0, risk: 'Baixo' },{ id: 15, name: 'Pedro Ramos', department: 'Técnico', satisfaction: 0.68, evaluation: 0.82, projects: 4, hours: 210, tenure: 5, promotion: 0, risk: 'Médio' },{ id: 16, name: 'Quintino Aires', department: 'RH', satisfaction: 0.20, evaluation: 0.60, projects: 5, hours: 280, tenure: 7, promotion: 0, risk: 'Alto' },{ id: 17, name: 'Rita Sousa', department: 'Suporte', satisfaction: 0.88, evaluation: 0.91, projects: 3, hours: 160, tenure: 2, promotion: 1, risk: 'Baixo' },{ id: 18, name: 'Sérgio Vieira', department: 'Design', satisfaction: 0.40, evaluation: 0.55, projects: 2, hours: 148, tenure: 3, promotion: 0, risk: 'Alto' },{ id: 19, name: 'Telma Cunha', department: 'Contabilidade', satisfaction: 0.75, evaluation: 0.80, projects: 4, hours: 190, tenure: 9, promotion: 1, risk: 'Baixo' },{ id: 20, name: 'Ulisses Pinto', department: 'Operações', satisfaction: 0.12, evaluation: 0.85, projects: 6, hours: 301, tenure: 4, promotion: 0, risk: 'Alto' },{ id: 21, name: 'Vera Matos', department: 'Vendas', satisfaction: 0.65, evaluation: 0.75, projects: 3, hours: 188, tenure: 3, promotion: 0, risk: 'Médio' },{ id: 22, name: 'Xavier Andrade', department: 'Desenvolvimento', satisfaction: 0.79, evaluation: 0.81, projects: 5, hours: 230, tenure: 6, promotion: 0, risk: 'Baixo' },{ id: 23, name: 'Zélia Brandão', department: 'Marketing', satisfaction: 0.61, evaluation: 0.65, projects: 3, hours: 195, tenure: 5, promotion: 0, risk: 'Médio' },{ id: 24, name: 'António Lopes', department: 'Técnico', satisfaction: 0.82, evaluation: 0.93, projects: 5, hours: 250, tenure: 7, promotion: 1, risk: 'Baixo' },{ id: 25, name: 'Beatriz Moreira', department: 'Suporte', satisfaction: 0.43, evaluation: 0.51, projects: 2, hours: 155, tenure: 3, promotion: 0, risk: 'Alto' },
         ];
 
+        // --- DOM ELEMENTS ---
         const tableBody = document.getElementById('employee-table-body');
         const modal = document.getElementById('employee-modal');
         const modalEmployeeName = document.getElementById('modal-employee-name');
@@ -200,11 +219,13 @@
         const chartTypePieBtn = document.getElementById('chart-type-pie');
         const chartTitle = document.getElementById('chart-title');
 
+        // --- STATE ---
         let currentEmployeeData = null;
         let generatedPlanText = '';
         let riskChart = null;
-        let currentChartType = 'bar'; // 'bar' ou 'pie'
+        let currentChartType = 'bar'; // 'bar' or 'horizontalBar'
 
+        // --- RENDER FUNCTIONS ---
         function getRiskBadge(risk) {
             const colors = { Alto: 'bg-red-500/20 text-red-400', Médio: 'bg-yellow-500/20 text-yellow-400', Baixo: 'bg-green-500/20 text-green-400' };
             return colors[risk] || 'bg-gray-500/20 text-gray-400';
@@ -219,21 +240,105 @@
             data.forEach(emp => {
                 const row = document.createElement('tr');
                 row.className = 'bg-gray-900 border-b border-gray-800 hover:bg-gray-800/50';
-                row.innerHTML = `<td class="px-6 py-4 font-medium text-white whitespace-nowrap">${emp.name}</td><td class="px-6 py-4">${emp.department}</td><td class="px-6 py-4 text-center"><span class="px-2 py-1 text-xs font-semibold rounded-full ${getRiskBadge(emp.risk)}">${emp.risk}</span></td><td class="px-6 py-4 text-center"><button data-id="${emp.id}" class="view-details-btn font-medium text-azul-claro hover:underline">Ver Detalhes</button></td>`;
+                row.innerHTML = `<td class="px-6 py-4 font-medium text-white whitespace-nowrap">${emp.name}</td><td class="px-6 py-4">${emp.department}</td><td class="px-6 py-4 text-center"><span class="px-2 py-1 text-xs font-semibold rounded-full ${getRiskBadge(emp.risk)}">${emp.risk}</span></td><td class="px-6 py-4 text-center"><button data-id="${emp.id}" class="view-details-btn font-medium text-azul-discreto hover:underline">Ver Detalhes</button></td>`;
                 tableBody.appendChild(row);
             });
             addTableButtonListeners();
         }
         
-        function addTableButtonListeners() {
-            document.querySelectorAll('.view-details-btn').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const employee = employees.find(emp => emp.id === parseInt(e.target.dataset.id));
-                    openModal(employee);
-                });
+        // --- CHARTING ---
+        function getRiskColor(risk, opacity = 0.7) {
+            const colors = { Alto: `rgba(239, 68, 68, ${opacity})`, Médio: `rgba(234, 179, 8, ${opacity})`, Baixo: `rgba(34, 197, 94, ${opacity})` };
+            return colors[risk] || `rgba(156, 163, 175, ${opacity})`;
+        }
+
+        function processBarChartData(data) {
+            const departments = {};
+            data.forEach(emp => {
+                if (!departments[emp.department]) departments[emp.department] = { 'Baixo': 0, 'Médio': 0, 'Alto': 0 };
+                departments[emp.department][emp.risk]++;
+            });
+            const labels = Object.keys(departments).sort();
+            const datasets = ['Baixo', 'Médio', 'Alto'].map(risk => ({
+                label: risk,
+                data: labels.map(dept => departments[dept][risk]),
+                backgroundColor: getRiskColor(risk),
+            }));
+            return { labels, datasets };
+        }
+
+        function processOverallData(data) {
+            const riskCounts = { 'Baixo': 0, 'Médio': 0, 'Alto': 0 };
+            data.forEach(emp => riskCounts[emp.risk]++);
+            const labels = ['Baixo', 'Médio', 'Alto'];
+            const datasets = [{
+                label: 'Nº de Colaboradores',
+                data: labels.map(risk => riskCounts[risk]),
+                backgroundColor: labels.map(risk => getRiskColor(risk, 1)),
+            }];
+            return { labels, datasets };
+        }
+
+        function renderDashboardChart(data) {
+            const ctx = document.getElementById('riskChart').getContext('2d');
+            if (riskChart) riskChart.destroy();
+            
+            let chartData, chartOptions, chartType;
+            
+            if (currentChartType === 'bar') {
+                chartType = 'bar';
+                chartData = processBarChartData(data);
+                chartOptions = {
+                    scales: {
+                        x: { stacked: true, ticks: { color: '#9ca3af' }, grid: { color: 'rgba(255, 255, 255, 0.1)' } },
+                        y: { stacked: true, beginAtZero: true, ticks: { color: '#9ca3af', stepSize: 1 }, grid: { color: 'rgba(255, 255, 255, 0.1)' } }
+                    },
+                    plugins: { 
+                        legend: { position: 'top', labels: { color: '#d1d5db' } } 
+                    }
+                };
+            } else { // horizontalBar
+                chartType = 'bar';
+                chartData = processOverallData(data);
+                chartOptions = {
+                    indexAxis: 'y',
+                    scales: {
+                        x: { beginAtZero: true, ticks: { color: '#9ca3af', stepSize: 1 }, grid: { color: 'rgba(255, 255, 255, 0.1)' } },
+                        y: { ticks: { color: '#9ca3af' }, grid: { color: 'rgba(255, 255, 255, 0.05)' } }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                };
+            }
+
+            riskChart = new Chart(ctx, {
+                type: chartType,
+                data: chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    ...chartOptions
+                }
             });
         }
 
+        // --- MODAL ---
+        function openModal(employee) {
+            currentEmployeeData = employee;
+            generatedPlanText = '';
+            modalEmployeeName.textContent = `Plano de Retenção: ${employee.name}`;
+            employeeDetails.innerHTML = `<p><strong>Departamento:</strong> ${employee.department}</p><p><strong>Nível de Satisfação:</strong> ${employee.satisfaction}</p><p><strong>Última Avaliação:</strong> ${employee.evaluation}</p><p><strong>Projetos Atuais:</strong> ${employee.projects}</p><p><strong>Média de Horas/Mês:</strong> ${employee.hours}</p><p><strong>Tempo de Empresa:</strong> ${employee.tenure} anos</p><p><strong>Promoção (5 anos):</strong> ${employee.promotion ? 'Sim' : 'Não'}</p>`;
+            generatePlanBtn.disabled = false;
+            aiPlanContainer.classList.add('hidden');
+            loadingSpinner.classList.add('hidden');
+            playAudioBtn.disabled = true;
+            modal.classList.add('open');
+        }
+
+        function closeModal() { modal.classList.remove('open'); }
+
+        // --- FILTERS & TABS ---
         function applyFilters() {
             const nameFilter = filterNameInput.value.toLowerCase();
             const departmentFilter = filterDepartmentSelect.value;
@@ -255,91 +360,38 @@
             });
         }
 
-        function getRiskColor(risk, opacity = 0.7) {
-            const colors = { Alto: `rgba(239, 68, 68, ${opacity})`, Médio: `rgba(234, 179, 8, ${opacity})`, Baixo: `rgba(34, 197, 94, ${opacity})` };
-            return colors[risk] || `rgba(156, 163, 175, ${opacity})`;
-        }
-
-        function processBarChartData(data) {
-            const departments = {};
-            data.forEach(emp => {
-                if (!departments[emp.department]) departments[emp.department] = { 'Baixo': 0, 'Médio': 0, 'Alto': 0 };
-                departments[emp.department][emp.risk]++;
-            });
-            const labels = Object.keys(departments).sort();
-            const datasets = ['Baixo', 'Médio', 'Alto'].map(risk => ({
-                label: risk,
-                data: labels.map(dept => departments[dept][risk]),
-                backgroundColor: getRiskColor(risk),
-            }));
-            return { labels, datasets };
-        }
-
-        function processPieChartData(data) {
-            const riskCounts = { 'Baixo': 0, 'Médio': 0, 'Alto': 0 };
-            data.forEach(emp => riskCounts[emp.risk]++);
-            const labels = ['Baixo', 'Médio', 'Alto'];
-            const datasets = [{
-                label: 'Nº de Colaboradores',
-                data: labels.map(risk => riskCounts[risk]),
-                backgroundColor: labels.map(risk => getRiskColor(risk, 1)),
-                borderColor: '#12161a',
-                borderWidth: 2,
-            }];
-            return { labels, datasets };
-        }
-
-        function renderDashboardChart(data) {
-            const ctx = document.getElementById('riskChart').getContext('2d');
-            if (riskChart) riskChart.destroy();
-            
-            let chartData, chartOptions;
-            if (currentChartType === 'bar') {
-                chartData = processBarChartData(data);
-                chartOptions = {
-                    scales: {
-                        x: { stacked: true, ticks: { color: '#9ca3af' }, grid: { color: 'rgba(255, 255, 255, 0.1)' } },
-                        y: { stacked: true, beginAtZero: true, ticks: { color: '#9ca3af', stepSize: 1 }, grid: { color: 'rgba(255, 255, 255, 0.1)' } }
-                    }
-                };
-            } else { // pie
-                chartData = processPieChartData(data);
-                chartOptions = {};
-            }
-
-            riskChart = new Chart(ctx, {
-                type: currentChartType,
-                data: chartData,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { position: 'top', labels: { color: '#d1d5db' } } },
-                    ...chartOptions
-                }
-            });
-        }
-
-        function openModal(employee) {
-            currentEmployeeData = employee;
-            generatedPlanText = '';
-            modalEmployeeName.textContent = `Plano de Retenção: ${employee.name}`;
-            employeeDetails.innerHTML = `<p><strong>Departamento:</strong> ${employee.department}</p><p><strong>Nível de Satisfação:</strong> ${employee.satisfaction}</p><p><strong>Última Avaliação:</strong> ${employee.evaluation}</p><p><strong>Projetos Atuais:</strong> ${employee.projects}</p><p><strong>Média de Horas/Mês:</strong> ${employee.hours}</p><p><strong>Tempo de Empresa:</strong> ${employee.tenure} anos</p><p><strong>Promoção (5 anos):</strong> ${employee.promotion ? 'Sim' : 'Não'}</p>`;
-            generatePlanBtn.disabled = employee.risk !== 'Alto';
-            generatePlanBtn.style.opacity = employee.risk !== 'Alto' ? 0.5 : 1;
-            generatePlanBtn.style.cursor = employee.risk !== 'Alto' ? 'not-allowed' : 'pointer';
+        // --- API & AI FUNCTIONS (Placeholder) ---
+        async function fetchWithBackoff(apiUrl, payload, maxRetries = 5) { /* API logic */ return null; }
+        async function handleGeneratePlan() { 
+            loadingSpinner.classList.remove('hidden');
             aiPlanContainer.classList.add('hidden');
-            loadingSpinner.classList.add('hidden');
-            playAudioBtn.disabled = true;
-            modal.classList.add('open');
+            generatePlanBtn.disabled = true;
+            
+            // Mock AI response
+            setTimeout(() => {
+                generatedPlanText = `Plano de Ação para ${currentEmployeeData.name}:\n\n1. Feedback e Reconhecimento: Agendar uma reunião 1:1 para discutir a sua avaliação de performance (${currentEmployeeData.evaluation}) e o nível de satisfação (${currentEmployeeData.satisfaction}). Reconhecer as suas contribuições nos ${currentEmployeeData.projects} projetos.\n\n2. Desenvolvimento de Carreira: Discutir oportunidades de crescimento, considerando que não houve promoção nos últimos 5 anos. Criar um plano de desenvolvimento individual (PDI).\n\n3. Equilíbrio e Carga de Trabalho: Avaliar a média de ${currentEmployeeData.hours} horas mensais para garantir que não há sobrecarga. Oferecer flexibilidade se necessário.`;
+                aiPlanContent.textContent = generatedPlanText;
+                loadingSpinner.classList.add('hidden');
+                aiPlanContainer.classList.remove('hidden');
+                generatePlanBtn.disabled = false;
+                playAudioBtn.disabled = false;
+            }, 1500);
         }
-
-        function closeModal() { modal.classList.remove('open'); }
-
-        async function fetchWithBackoff(apiUrl, payload, maxRetries = 5) { /* ...código da API... */ return null; }
-        async function handleGeneratePlan() { /* ...código da API... */ }
-        function base64ToArrayBuffer(base64) { /* ...código TTS... */ }
-        function pcmToWav(pcmData, sampleRate) { /* ...código TTS... */ }
-        async function handlePlayAudio() { /* ...código da API TTS... */ }
+        function base64ToArrayBuffer(base64) { /* TTS logic */ }
+        function pcmToWav(pcmData, sampleRate) { /* TTS logic */ }
+        async function handlePlayAudio() { /* TTS API logic */ 
+            alert('Funcionalidade de áudio não implementada neste demo.');
+        }
+        
+        // --- EVENT LISTENERS ---
+        function addTableButtonListeners() {
+            document.querySelectorAll('.view-details-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const employee = employees.find(emp => emp.id === parseInt(e.target.dataset.id));
+                    openModal(employee);
+                });
+            });
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
             populateDepartmentFilter();
@@ -373,7 +425,7 @@
         });
 
         chartTypePieBtn.addEventListener('click', () => {
-            currentChartType = 'pie';
+            currentChartType = 'horizontalBar';
             chartTitle.textContent = 'Visão Geral do Risco (Filtrado)';
             chartTypePieBtn.classList.add('active');
             chartTypeBarBtn.classList.remove('active');
@@ -387,4 +439,3 @@
     </script>
 </body>
 </html>
-
